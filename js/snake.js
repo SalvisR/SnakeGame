@@ -18,6 +18,8 @@ class Snake {
       y: 0
     };
     this.food = {};
+    this.score = 0;
+    this.scoreEl = null;
   }
 
   setDir(x, y) {
@@ -81,6 +83,7 @@ class Snake {
 
     if (x == this.food.x && y == this.food.y) {
       this.grow();
+      this.setScore();
     }
   }
 
@@ -90,11 +93,20 @@ class Snake {
     const headPos = this.body.filter(pos => pos.x == x && pos.y == y);
 
     if (x > 295 || x < 0 || y > 295 || y < 0) {
-      console.log('end game');
+      console.log('Game Over!');
       cancelAnimationFrame(this.request);
     } else if (headPos.length > 1) {
-      console.log('end game');
+      console.log('Game Over!');
       cancelAnimationFrame(this.request);
     }
+  }
+
+  getScoreEl(el) {
+    this.scoreEl = el;
+  }
+
+  setScore() {
+    this.score += 5;
+    this.scoreEl.textContent = this.score;
   }
 }
