@@ -20,6 +20,7 @@ class Snake {
     this.food = {};
     this.score = 0;
     this.scoreEl = null;
+    this.speed = 150;
   }
 
   setDir(x, y) {
@@ -42,7 +43,7 @@ class Snake {
       this.endGame();
       this.update();
       this.eat();
-    }, 150);
+    }, this.speed);
   }
 
   update() {
@@ -109,5 +110,26 @@ class Snake {
   setScore() {
     this.score += 5;
     this.scoreEl.textContent = this.score;
+    if (this.score == 30) {
+      this.speed = 130;
+    }
+    if (this.score == 70) {
+      this.speed = 110;
+    }
+    if (this.score == 90) {
+      this.speed = 100;
+    }
+    if (this.score == 120) {
+      this.speed = 90;
+    }
+    if (this.score == 150) {
+      this.speed = 80;
+    }
+    if (this.score == 170) {
+      this.speed = 70;
+    }
+    if (this.score == 200) {
+      this.speed = 60;
+    }
   }
 }
