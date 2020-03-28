@@ -65,7 +65,7 @@ class Snake {
   showFood() {
     const randomNumber = () => {
       const numbers = [];
-      for (let i = 0; i < 301; i += 5) {
+      for (let i = 0; i < 296; i += 5) {
         numbers.push(i);
       }
       return numbers[Math.floor(Math.random() * 61)];
