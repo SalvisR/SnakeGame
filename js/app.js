@@ -3,9 +3,9 @@ canvas.width = 300;
 canvas.height = 300;
 
 const snake = new Snake();
+
 snake.showFood();
 snake.move();
-
 window.addEventListener('keydown', (event) => {
   // Up
   if (event.keyCode === 38) {

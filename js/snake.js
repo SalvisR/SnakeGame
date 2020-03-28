@@ -1,51 +1,49 @@
 class Snake {
   constructor() {
     this.context = canvas.getContext('2d');
+    this.request = null;
     this.body = [];
     this.body[0] = {
       x: 150,
       y: 150
     };
-    this.posX = 150;
-    this.posY = 150;
+    this.pos = {
+      x: 150,
+      y: 150
+    };
     this.width = 5;
     this.height = 5;
-    this.dirX = 0;
-    this.dirY = 0;
+    this.dir = {
+      x: 0,
+      y: 0
+    };
     this.food = {};
   }
 
   setDir(x, y) {
-    this.dirX = x * 5;
-    this.dirY = y * 5;
+    this.dir.x = x * 5;
+    this.dir.y = y * 5;
   }
 
   move() {
     setTimeout(() => {
-      requestAnimationFrame(this.move.bind(this));
+      this.request = requestAnimationFrame(this.move.bind(this));
       this.context.clearRect(0, 0, innerWidth, innerHeight);
-      this.posX += this.dirX;
-      this.posY += this.dirY;
+      this.pos.x += this.dir.x;
+      this.pos.y += this.dir.y;
       this.body.unshift({
-        x: this.posX,
-        y: this.posY
+        x: this.pos.x,
+        y: this.pos.y
       });
       this.body.pop();
 
-      this.show();
-      this.eat();
       this.endGame();
-
-    }, 200);
+      this.update();
+      this.eat();
+    }, 150);
   }
 
-  grow() {
-    const head = this.body[this.body.length - 1];
-    this.body.push(head);
-    this.showFood();
-  }
-
-  show() {
+  update() {
     for (let i = 0; i < this.body.length; i++) {
       this.context.fillRect(
         this.body[i].x,
@@ -58,6 +56,12 @@ class Snake {
     this.context.fillRect(this.food.x, this.food.y, 5, 5);
   }
 
+  grow() {
+    const head = this.body[this.body.length - 1];
+    this.body.push(head);
+    this.showFood();
+  }
+
   showFood() {
     const randomNumber = () => {
       const numbers = [];
@@ -65,7 +69,7 @@ class Snake {
         numbers.push(i);
       }
       return numbers[Math.floor(Math.random() * 61)];
-    }
+    };
 
     this.food.x = randomNumber();
     this.food.y = randomNumber();
@@ -87,8 +91,10 @@ class Snake {
 
     if (x > 295 || x < 0 || y > 295 || y < 0) {
       console.log('end game');
+      cancelAnimationFrame(this.request);
     } else if (headPos.length > 1) {
       console.log('end game');
+      cancelAnimationFrame(this.request);
     }
   }
 }
