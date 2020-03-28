@@ -70,8 +70,9 @@ class Snake {
       for (let i = 0; i < 296; i += 5) {
         numbers.push(i);
       }
-      return numbers[Math.floor(Math.random() * 61)];
+      return numbers[Math.floor(Math.random() * 60)];
     };
+
 
     this.food.x = randomNumber();
     this.food.y = randomNumber();
